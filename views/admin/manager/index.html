@@ -1,0 +1,68 @@
+{{template "../public/page_header.html" .}}
+
+
+<div class="container-fluid">
+    <div class="page-titles">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">系统设置</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">管理员列表</a></li>
+        </ol>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">管理员列表</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                            <tr>
+                                <th><strong>管理员名称</strong></th>
+                                <th><strong>管理员电话</strong></th>
+                                <th><strong>管理员邮箱</strong></th>
+                                <th><strong>管理员角色</strong></th>
+                                <th><strong>创建时间</strong></th>
+                                <th><strong>操作</strong></th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {{range $key,$value := .managerList}}
+                                <tr>
+                                    <td><strong>{{$value.Username}}<strong></td>
+                                    <td>{{$value.Mobile}}</td>
+                                    <td>{{$value.Email}}</td>
+                                    <td>{{$value.Role.Title}}</td>
+                                    <td>{{$value.AddTime | unixToDate}}</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a href="/{{config "String" "adminPath" ""}}/manager/edit?id={{$value.Id}}"
+                                               class="btn btn-primary shadow btn-xs sharp mr-1"><i
+                                                        class="fa fa-pencil"></i></a>
+                                            <a href="/{{config "String" "adminPath" ""}}/manager/delete?id={{$value.Id}}"
+                                               class="delete btn btn-danger shadow btn-xs sharp"><i
+                                                        class="fa fa-trash"></i></a>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            {{end}}
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

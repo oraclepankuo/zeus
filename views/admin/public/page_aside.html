@@ -1,0 +1,60 @@
+<ul class="metismenu" id="menu">
+    {{$isSuper := .isSuper}}
+    {{range $key,$value := .accessList}}
+        {{if eq $isSuper 1}}
+            <li><a class="has-arrow ai-icon" aria-expanded="false">
+                    {{if eq $value.Id 101}}
+                        <i class="flaticon-381-television"></i>
+                    {{else if eq $value.Id 102}}
+                        <i class="flaticon-381-networking"></i>
+                    {{else if eq $value.Id 103}}
+                        <i class="flaticon-381-controls-3"></i>
+                    {{else if eq $value.Id 104}}
+                        <i class="flaticon-381-heart"></i>
+                    {{else if eq $value.Id 105}}
+                        <i class="flaticon-381-internet"></i>
+                    {{else if eq $value.Id 106}}
+                        <i class="flaticon-381-television"></i>
+                    {{else if eq $value.Id 107}}
+                        <i class="flaticon-381-network"></i>
+                    {{else if eq $value.Id 108}}
+                        <i class="flaticon-381-settings-2"></i>
+                    {{end}}
+                    <span class="nav-text">{{$value.ModuleName}}</span>
+                </a>
+                <ul aria-expanded="false">
+                    {{range $k,$v := $value.AccessItem}}
+                        {{if eq $v.Type 2}}
+                            <li><a target="rightMain"
+                                   href="/{{config "String" "adminPath" ""}}{{$v.Url}}">{{$v.ActionName}}</a></li>
+                        {{end}}
+                    {{end}}
+                </ul>
+            </li>
+        {{else}}
+            {{if eq  $value.Checked true}}
+                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                        <i class="flaticon-381-networking"></i>
+                        <span class="nav-text">{{$value.ModuleName}}</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        {{range $k,$v := $value.AccessItem}}
+                            {{if eq $v.Checked true}}
+                                {{if eq $v.Type 2}}
+                                    <li><a target="rightMain"
+                                           href="/{{config "String" "adminPath" ""}}{{$v.Url}}">{{$v.ActionName}}</a>
+                                    </li>
+                                {{end}}
+                            {{end}}
+                        {{end}}
+                    </ul>
+                </li>
+            {{end}}
+        {{end}}
+    {{end}}
+</ul>
+
+
+
+
+

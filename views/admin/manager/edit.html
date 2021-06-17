@@ -1,0 +1,75 @@
+{{template "../public/page_header.html" .}}
+
+<div class="container-fluid">
+    <div class="page-titles">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">管理员列表</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">编辑管理员</a></li>
+        </ol>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-6 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">编辑管理员</h4>
+                </div>
+                <div class="card-body">
+                    <div class="basic-form">
+                        <form action="/{{config "String" "adminPath" ""}}/manager/doEdit" method="post">
+                            <input type="hidden" name="id" value="{{.managerList.Id}}"/>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">管理员名称</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="username" value="{{.managerList.Username}}"
+                                           class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">管理员密码</label>
+                                <div class="col-sm-9">
+                                    <input type="password" name="password" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">管理员电话</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="mobile" value="{{.managerList.Mobile}}"
+                                           class="form-control">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">管理员邮箱</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="email" value="{{.managerList.Email}}" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">管理员角色</label>
+                                <select style="border-radius: 0.75rem;margin-left: 15px" name="role_id" id="role_id"
+                                        lay-verify="required">
+                                    {{$RoleId := .managerList.RoleId}}
+                                    {{range $key,$value := .roleList}}
+                                        {{if eq $value.Id $RoleId}}
+                                            <option selected value="{{$value.Id}}">{{$value.Title}}</option>
+                                        {{else}}
+                                            <option value="{{$value.Id}}">{{$value.Title}}</option>
+                                        {{end}}
+                                    {{end}}
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">立即提交</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

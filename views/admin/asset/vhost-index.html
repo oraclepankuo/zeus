@@ -1,0 +1,171 @@
+{{template "../public/page_header.html" .}}
+
+
+<div class="layui-body" style="left: 205px">
+    <table class="layui-table">
+
+        <div class="panel-body">
+            <form role="form" class="form-inline">
+                <div>
+                    <button style="margin:0px;transform: translateY(10%)" class="layui-btn layui-btn-normal"><i
+                                class="layui-icon layui-icon-addition"></i>服务器
+                    </button>
+                    <button style="margin:0px;transform: translateY(10%)" class="layui-btn layui-btn-normal"><i
+                                class="layui-icon layui-icon-survey"></i>更新
+                    </button>
+                    <button style="margin:0px;transform: translateY(10%)" class="layui-btn layui-btn-normal"><i
+                                class="layui-icon layui-icon-export"></i>导出
+                    </button>
+                    <button style="margin:0px;transform: translateY(10%)" class="layui-btn layui-btn-normal"><i
+                                class="layui-icon layui-icon-upload-circle"></i>导入
+                    </button>
+                    <button style="margin:0px;transform: translateY(10%)" class="layui-btn layui-btn-normal"><i
+                                class="layui-icon layui-icon-delete"></i>删除
+                    </button>
+                </div>
+                <div style="float: right">
+                    <input style="padding: 7px 0px;transform: translateY(10%)" type="text" class="form-control"
+                           value="{{.keyword}}" id="keyword" name="keyword" placeholder="请输入IP">
+                    <button style="margin:0px;transform: translateY(10%)" class="layui-btn layui-btn-primary"><i
+                                class="layui-icon layui-icon-refresh-3"></i></button>
+                    <button style="margin:0px;transform: translateY(10%)" class="layui-btn layui-btn-normal">开始搜索
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <thead>
+        <tr>
+            <th><input type="checkbox" name="" lay-skin="primary"></th>
+            <th>ID</th>
+            <th>SN号</th>
+            <th>实例名</th>
+            <th>环境</th>
+            <th>机器状态</th>
+            <th>资源池</th>
+            <th>虚机类型</th>
+            <th>虚机状态</th>
+            <th>IDC位置</th>
+            <th>IP地址</th>
+            <th>闲置率(%)</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {{range $key,$value := .vhostsList}}
+
+            <tr>
+                <td><input type="checkbox" name="" lay-skin="primary"></td>
+                <td>{{$value.Id}}</td>
+                <td>{{$value.Sn}}</td>
+                <td>{{$value.InstanceName}}</td>
+                <td class="text-center">
+                    {{if eq $value.Environment 1}}
+                        <button class="layui-btn layui-btn-sm">生产</button>
+                    {{else if eq $value.Environment 2}}
+                        <button class="layui-btn layui-btn-normal layui-btn-sm">开发测试</button>
+                    {{else if eq $value.Environment 3}}
+                        <button class="layui-btn layui-btn-sm">预发布</button>
+                    {{else if eq $value.Environment 4}}
+                        <button class="layui-btn layui-btn-warm layui-btn-sm">压测</button>
+                    {{end}}
+                </td>
+
+                <td class="text-center">
+                    {{if eq $value.MachineStatus 1}}
+                        <button class="layui-btn layui-btn-sm">已上线</button>
+                    {{else if eq $value.MachineStatus 2}}
+                        <button class="layui-btn layui-btn-normal layui-btn-sm">已下线</button>
+                    {{else if eq $value.MachineStatus 3}}
+                        <button class="layui-btn layui-btn-danger layui-btn-sm">已下架</button>
+                    {{else if eq $value.MachineStatus 4}}
+                        <button class="layui-btn layui-btn-disabled layui-btn-sm">已报废</button>
+                    {{end}}
+                </td>
+                <td class="text-center">
+                    {{if eq $value.ResourcePool 1}}
+                        <button class="layui-btn layui-btn-sm">业务</button>
+                    {{else if eq $value.ResourcePool 2}}
+                        <button class="layui-btn layui-btn-normal layui-btn-sm">备机</button>
+                    {{else if eq $value.ResourcePool 3}}
+                        <button class="layui-btn layui-btn-warm layui-btn-sm">测试</button>
+                    {{else if eq $value.ResourcePool 4}}
+                        <button class="layui-btn layui-btn-disabled layui-btn-sm">删除</button>
+                    {{else if eq $value.ResourcePool 5}}
+                        <button class="layui-btn layui-btn-danger layui-btn-sm">故障</button>
+                    {{else if eq $value.ResourcePool 6}}
+                        <button class="layui-btn layui-btn-primary layui-btn-sm">其他</button>
+                    {{end}}
+                </td>
+
+                <td class="text-center">
+                    {{if eq $value.VirtualMachineType 1}}
+                        <button class="layui-btn layui-btn-sm">腾讯云</button>
+                    {{else if eq $value.VirtualMachineType 2}}
+                        <button class="layui-btn layui-btn-sm">阿里云</button>
+                    {{else if eq $value.VirtualMachineType 3}}
+                        <button class="layui-btn layui-btn-sm">百度云</button>
+                    {{end}}
+                </td>
+
+                <td class="text-center">
+                    {{if eq $value.VirtualMachineStatus 1}}
+                        <button class="layui-btn layui-btn-sm">运行</button>
+                    {{else if eq $value.VirtualMachineStatus 2}}
+                        <button class="layui-btn layui-btn-warm layui-btn-sm">超期</button>
+                    {{else if eq $value.VirtualMachineStatus 3}}
+                        <button class="layui-btn layui-btn-danger layui-btn-sm">停机</button>
+                    {{end}}
+                </td>
+                <td>{{$value.Position}}</td>
+                <td>
+                    <button class="layui-btn layui-btn-sm">{{$value.Intranet}}</button>
+                </td>
+
+                <td class="text-center">
+                    {{if ge $value.IdleRate 90}}
+                        <button class="layui-btn layui-btn-danger layui-btn-sm">{{$value.IdleRate}}</button>
+                    {{else}}
+                        <button class="layui-btn layui-btn-sm">{{$value.IdleRate}}</button>
+                    {{end}}
+                </td>
+
+                <td>{{$value.AddTime | unixToDate}}</td>
+                <td>
+                    <button type="button" class="layui-btn layui-btn-sm">
+                        <i class="layui-icon">&#xe642;</i>
+                    </button>
+                </td>
+            </tr>
+        {{end}}
+        </tbody>
+    </table>
+    <div style="float: right" id="vhost_count"></div>
+</div>
+
+
+</div>
+
+<script src="/static/layui/layui.js"></script>
+
+<script>
+    layui.use('laypage', function () {
+        var laypage = layui.laypage;
+
+        laypage.render({
+            elem: 'vhost_count'
+            , count: {{.count}} + {{.num}} //数据总数，从服务端得到
+            , limit: {{.pageSize}}  //每页显示多少
+
+
+        });
+    });
+
+
+</script>
+
+
+</body>
+</html>

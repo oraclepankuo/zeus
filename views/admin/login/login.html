@@ -1,0 +1,65 @@
+<html lang="en" class="h-100">
+
+<head>
+    <title>用户登录</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" sizes="16x16" href="/static/admin/img/favicon.ico">
+    <link href="/static/admin/css/style.css" rel="stylesheet">
+    <link href="/static/admin/css/login.css" rel="stylesheet">
+</head>
+
+<body class="h-100">
+<div class="authincation h-100">
+    <div class="container h-100">
+        <div class="row justify-content-center h-100 align-items-center">
+            <div class="col-md-6">
+                <div class="authincation-content">
+                    <div class="row no-gutters">
+                        <div class="col-xl-12">
+                            <div class="auth-form" id="login">
+                                <form action="/{{config "String" "adminPath" ""}}/login/doLogin" method="post"
+                                      id="myform">
+                                    <input type="hidden" name="ajaxlogin" id="ajaxlogin">
+                                    <input type="hidden" name="ajaxcode" id="ajaxcode">
+                                    <h3 class="text-center mb-4 l_title">宙斯运维管理系统</h3>
+
+
+                                    <div class="form-group">
+                                        <label class="mb-1"><strong>账号</strong></label>
+                                        <input type="text" class="form-control text" name="username" id="username">
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="mb-1"><strong>密码</strong></label>
+                                        <input type="password" class="form-control text" name="password" id="password">
+
+                                    </div>
+
+                                    <div class="form-group" style="margin-bottom: 0rem">
+                                        <label class="mb-1"><strong>验证码</strong></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="captcha" id="verify" name="captcha">
+                                        {{create_captcha}}
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary btn-block" name="dosubmit"
+                                                value="">登录
+                                        </button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

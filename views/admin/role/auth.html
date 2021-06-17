@@ -1,0 +1,66 @@
+{{template "../public/page_header.html" .}}
+
+
+<div class="container-fluid">
+    <div class="page-titles">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">角色列表</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">授权列表</a></li>
+        </ol>
+    </div>
+    <div class="row">
+        <div class="col-xl-6 col-lg-6">
+            <div class="">
+                <div class="">
+                    <h4 class="card-title">授权列表</h4>
+                </div>
+
+                <form action="/{{config "String" "adminPath" ""}}/role/doAuth" method="post">
+                    <input type="hidden" name="role_id" value="{{.roleId}}">
+
+                    <div class="">
+                        <table class="table table-responsive-md">
+                            <thead>
+                            <tr>
+                                <th><strong>一级模块名称</strong></th>
+                                <th><strong>二级模块名称和权限</strong></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{range $key,$value := .accessList}}
+                                <tr>
+                                    <td align="right" style="background: #ebfaef; padding-right: 10px; width: 50px;">
+                                        <label>
+                                            <input type="checkbox" {{if eq $value.Checked true }}checked{{end}}
+                                                   value="{{$value.Id}}" name="access_node">&nbsp;&nbsp;
+                                            {{$value.ModuleName}}
+                                        </label>
+                                    </td>
+
+                                    <td style="padding-right: 10px; width: 150px;">
+                                        {{range $k,$v := $value.AccessItem}}
+                                            &nbsp;&nbsp;
+                                            <label>
+                                                <input type="checkbox" {{if eq $v.Checked true }}checked{{end}}
+                                                       value="{{$v.Id}}" name="access_node">
+                                                &nbsp;&nbsp;{{$v.ActionName}}</label>
+                                            &nbsp;&nbsp
+                                        {{end}}
+                                    </td>
+
+                                </tr>
+
+                            {{end}}
+                        </table>
+
+                    </div>
+
+                    <br>
+
+                    <button type="submit" class="btn btn-primary">立即提交</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,111 @@
+{{template "../public/page_header.html" .}}
+<div class="card-body" id="container" style="min-width:400px;height:400px;display: inline"></div>
+<script>
+    Highcharts.chart('container', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: '集团各个项目服务器数量'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: {point.y}台 百分比: {point.percentage:.1f}%'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}：{point.y}台',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [{
+                name: '魔法课堂',
+                y: 61,
+                sliced: true,
+                selected: true
+            }, {
+                name: '管理宝',
+                y: 11
+            }, {
+                name: '全套1v1',
+                y: 10
+            }, {
+                name: '监控工具',
+                y: 4
+            }]
+        }]
+    });
+</script>
+
+
+<div id="container2" style="min-width:400px;height:400px;display: inline"></div>
+<script>
+    Highcharts.chart('container2', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: '集团所有项目服务器成本'
+        },
+        tooltip: {
+            pointFormat: '成本:{point.y} 万元 {series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}：{point.y} 万元',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [{
+                name: '魔法课堂',
+                y: 61,
+                sliced: true,
+                selected: true
+            }, {
+                name: '图片转化',
+                y: 11
+            }, {
+                name: '管理宝',
+                y: 10
+            }, {
+                name: '全套1v1',
+                y: 4
+            }, {
+                name: '监控工具',
+                y: 4
+            }]
+        }]
+    });
+</script>
+

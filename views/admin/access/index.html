@@ -1,0 +1,102 @@
+{{template "../public/page_header.html" .}}
+
+<div class="container-fluid">
+    <div class="page-titles">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">系统设置</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">权限列表</a></li>
+        </ol>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">权限列表</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                            <tr>
+                                <th><strong>模块名称</strong></th>
+                                <th><strong>节点类型</strong></th>
+                                <th><strong>操作名称</strong></th>
+                                <th><strong>操作地址</strong></th>
+                                <th><strong>排序</strong></th>
+                                <th><strong>描述</strong></th>
+                                <th><strong>操作</strong></th>
+                            </tr>
+                            </thead>
+
+
+                            <tbody>
+
+                            {{range $key,$value := .accessList}}
+                                <tr>
+                                    <td><strong>{{$value.ModuleName}}<strong></td>
+                                    <td>
+                                        {{if eq $value.Type 1}}
+                                            模块
+                                        {{else if eq $value.Type 2}}
+                                            菜单
+                                        {{else}}
+                                            操作
+                                        {{end}}
+                                    </td>
+                                    <td>{{$value.ActionName}}</td>
+                                    <td>{{$value.Url}}</td>
+                                    <td>{{$value.Sort}}</td>
+                                    <td>{{$value.Description}}</td>
+                                    <td class="text-center">
+                                        <a href="/{{config "String" "adminPath" ""}}/access/edit?id={{$value.Id}}"
+                                           class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                        <a href="/{{config "String" "adminPath" ""}}/access/delete?id={{$value.Id}}"
+                                           class="delete btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+
+                                {{range $k,$v := $value.AccessItem}}
+                                    <tr>
+                                        <td>---{{$v.ModuleName}}</td>
+                                        <td>
+                                            {{if eq $v.Type 1}}
+                                                模块
+                                            {{else if eq $v.Type 2}}
+                                                菜单
+                                            {{else}}
+                                                操作
+                                            {{end}}
+                                        </td>
+                                        <td>{{$v.ActionName}}</td>
+                                        <td>{{$v.Url}}</td>
+                                        <td>{{$v.Sort}}</td>
+                                        <td>{{$v.Description}}</td>
+                                        <td class="text-center">
+                                            <a href="/{{config "String" "adminPath" ""}}/access/edit?id={{$v.Id}}"
+                                               class="btn btn-primary shadow btn-xs sharp mr-1"><i
+                                                        class="fa fa-pencil"></i></a>
+                                            <a href="/{{config "String" "adminPath" ""}}/access/delete?id={{$v.Id}}"
+                                               class="delete btn btn-danger shadow btn-xs sharp"><i
+                                                        class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                {{end}}
+                            {{end}}
+
+
+                            </tbody>
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
